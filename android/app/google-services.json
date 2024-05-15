@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "48111034768",
+    "project_id": "stray-care-e8c02",
+    "storage_bucket": "stray-care-e8c02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48111034768:android:de18bd9482fdbbd117d315",
+        "android_client_info": {
+          "package_name": "com.example.stray_care"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlOSpDXyUnC0iv5CPYPsQOdr6EdY6qIbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
