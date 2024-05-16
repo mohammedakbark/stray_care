@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:stray_care/view/const/cheary_toast.dart';
 import 'package:stray_care/view/modules/user/user_home.dart';
@@ -125,10 +127,33 @@ class UserController with ChangeNotifier {
   }
 
   // -------------------------------------
- static  List<String> animalType = [
+  static List<String> animalType = [
     "Wonded Animal",
     "Aggressive Animal",
     "Wild Animal",
     "Abuse Towards Animal"
   ];
+  final imagePicker = ImagePicker();
+  File? pickedFile;
+ Future pickeImageFromGallery() async {
+    final pickedXFile =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+    if (pickedXFile != null) {
+      pickedFile = File(pickedXFile.path);
+      notifyListeners();
+    }
+  }
+
+  Future pickeImageFromCamera() async {
+    final pickedXFile = await imagePicker.pickImage(source: ImageSource.camera);
+    if (pickedXFile != null) {
+      pickedFile = File(pickedXFile.path);
+      notifyListeners();
+    }
+  }
+
+  clearPicker() {
+    pickedFile = null;
+    notifyListeners();
+  }
 }

@@ -2,7 +2,7 @@ import 'package:stray_care/model/user_model.dart';
 
 class ReportIncidentModel {
   String uid;
-  String incidentId;
+  String? incidentId;
   String imageUrl;
   String description;
   String typeOfAnimal;
@@ -14,7 +14,7 @@ class ReportIncidentModel {
       required this.dateTime,
       required this.description,
       required this.imageUrl,
-      required this.incidentId,
+       this.incidentId,
       required this.typeOfAnimal,
       required this.uid});
 

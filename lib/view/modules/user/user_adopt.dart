@@ -1,5 +1,12 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:stray_care/controller/user_db_controller.dart';
 import 'package:stray_care/view/const/custom_colors.dart';
 import 'package:stray_care/view/const/custom_float_button.dart';
 import 'package:stray_care/view/modules/user/adopt_details.dart';
@@ -10,44 +17,95 @@ class UserAdopt extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false,),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          children: [
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: "Search",
-                border: OutlineInputBorder(),
-                icon: Icon(CupertinoIcons.search, color: CustomColors.buttonColor1,size: 30,)
+        child:
+            Consumer<UserDBController>(builder: (context, dbController, child) {
+          return Column(
+            children: [
+              TextFormField(
+                onChanged: (value) {
+                  dbController.searchData(value);
+                },
+                decoration: const InputDecoration(
+                    hintText: "Search",
+                    border: OutlineInputBorder(),
+                    icon: Icon(
+                      CupertinoIcons.search,
+                      color: CustomColors.buttonColor1,
+                      size: 30,
+                    )),
               ),
-            ),
-            SizedBox(height: 10,),
-            SizedBox(
-              height: MediaQuery.of(context).size.height/1.3,
-                child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2
-                    ),
-                    itemCount: 10,
-                    itemBuilder: (context, index){
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>AdoptDetails()));
-                          },
-                          child: Container(
-                            color: CustomColors.buttonColor2,
-                          ),
-                        ),
-                      );
-                    })
-            )
-          ],
-        ),
+              const SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: FutureBuilder(
+                    future: dbController.getAllIncident(),
+                    builder: (context, snapshot) {
+                      final data = dbController.searchResult.isNotEmpty
+                          ? dbController.searchResult
+                          : dbController.listOfIncidents;
+                      return data.isEmpty
+                          ? const Center(
+                              child: Text("No Data"),
+                            )
+                          : GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      mainAxisSpacing: 20,
+                                      crossAxisSpacing: 20),
+                              itemCount: data.length,
+                              itemBuilder: (context, index) {
+                                return SizedBox(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        data[index].collectedPlace,
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      Expanded(
+                                        child: SizedBox(
+                                          width: double.infinity,
+                                          child: InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const AdoptDetails()));
+                                            },
+                                            child: Image.network(
+                                              data[index].imageUrl,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "Description: ${data[index].description}",
+                                          style: GoogleFonts.poppins(),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              });
+                    }),
+              )
+            ],
+          );
+        }),
       ),
-      floatingActionButton: CustomFloatButton(),
+      floatingActionButton: const CustomFloatButton(),
     );
   }
 }

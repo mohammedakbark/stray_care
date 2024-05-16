@@ -57,7 +57,7 @@ class _UserFindPetState extends State<UserFindPet> {
                               color: CustomColors.buttonColor2),
                           child: TextButton(
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> const UserReportMissing()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>  UserReportMissing()));
                               },
                               child: const Text(
                                 "Report missing",
