@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<UserController>(
           create: (context) => UserController(),
         ),
-         ChangeNotifierProvider<UserDBController>(
+        ChangeNotifierProvider<UserDBController>(
           create: (context) => UserDBController(),
         )
       ],
@@ -39,8 +39,9 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         title: 'Stray Care',
-         home:FirebaseAuth.instance.currentUser==null? LoginSelection():UserHome(),
-     
+        home: FirebaseAuth.instance.currentUser == null
+            ? LoginSelection()
+            : UserHome(),
       ),
     );
   }

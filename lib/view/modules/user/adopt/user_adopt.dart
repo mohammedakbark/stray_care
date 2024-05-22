@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:stray_care/controller/user_db_controller.dart';
 import 'package:stray_care/view/const/custom_colors.dart';
 import 'package:stray_care/view/const/custom_float_button.dart';
-import 'package:stray_care/view/modules/user/adopt_details.dart';
+import 'package:stray_care/view/modules/user/adopt/adopt_details.dart';
 
 class UserAdopt extends StatelessWidget {
   const UserAdopt({super.key});

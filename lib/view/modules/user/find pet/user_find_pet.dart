@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stray_care/view/const/custom_float_button.dart';
-import 'package:stray_care/view/modules/user/user_my_reports.dart';
+import 'package:stray_care/view/modules/user/find%20pet/user_found_a_pet.dart';
+import 'package:stray_care/view/modules/user/find%20pet/user_my_reports.dart';
 import 'package:stray_care/view/modules/user/user_report_missing.dart';
 
-import '../../const/custom_colors.dart';
+import '../../../const/custom_colors.dart';
 
 class UserFindPet extends StatefulWidget {
   const UserFindPet({super.key});
@@ -34,14 +35,18 @@ class _UserFindPetState extends State<UserFindPet> {
                               color: CustomColors.buttonColor1),
                           child: TextButton(
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> const UserMyReports()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const UserMyReports()));
                               },
                               child: const Text(
                                 "My reports",
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                              )
-                          )
-                      ),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ))),
                     ),
                   ],
                 ),
@@ -57,11 +62,17 @@ class _UserFindPetState extends State<UserFindPet> {
                               color: CustomColors.buttonColor2),
                           child: TextButton(
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>  UserReportMissing()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            UserReportMissing()));
                               },
                               child: const Text(
                                 "Report missing",
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               ))),
                     ),
                   ],
@@ -78,11 +89,17 @@ class _UserFindPetState extends State<UserFindPet> {
                               color: CustomColors.buttonColor1),
                           child: TextButton(
                               onPressed: () {
-                                // Navigator.push(context, MaterialPageRoute(builder: (context)=> const UserReportAddDetails()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const FountAPetPage()));
                               },
                               child: const Text(
                                 "Found a pet ?",
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               ))),
                     ),
                   ],

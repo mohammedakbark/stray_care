@@ -45,6 +45,18 @@ class UserDBController with ChangeNotifier {
         .toList();
   }
 
+  List<ReportMissingModel> listOfMissingReport = [];
+  Future getAllMissingReposts() async {
+    final snapshot = await db
+        .collection("Missing reports")
+        // .where("uid", isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    listOfMissingReport = snapshot.docs
+        .map((e) => ReportMissingModel.fromjson(e.data()))
+        .toList();
+  }
+
 //-- delete
 
 //-- update

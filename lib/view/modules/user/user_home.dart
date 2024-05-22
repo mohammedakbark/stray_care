@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stray_care/view/about_us.dart';
 import 'package:stray_care/view/const/custom_button.dart';
-import 'package:stray_care/view/modules/user/booking_and_medicines.dart';
-import 'package:stray_care/view/modules/user/user_adopt.dart';
-import 'package:stray_care/view/modules/user/user_booking.dart';
-import 'package:stray_care/view/modules/user/user_donate.dart';
-import 'package:stray_care/view/modules/user/user_find_pet.dart';
-import 'package:stray_care/view/modules/user/user_medicines.dart';
-import 'package:stray_care/view/modules/user/user_report_incident.dart';
+import 'package:stray_care/view/modules/user/booking/booking_and_medicines.dart';
+import 'package:stray_care/view/modules/user/adopt/user_adopt.dart';
+import 'package:stray_care/view/modules/user/booking/user_booking.dart';
+import 'package:stray_care/view/modules/user/donate/user_donate.dart';
+import 'package:stray_care/view/modules/user/find%20pet/user_find_pet.dart';
+import 'package:stray_care/view/modules/user/find%20pet/user_report_incident.dart';
 
 import '../../const/custom_colors.dart';
 

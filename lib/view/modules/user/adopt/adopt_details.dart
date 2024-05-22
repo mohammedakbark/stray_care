@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stray_care/view/const/custom_button.dart';
 import 'package:stray_care/view/const/custom_colors.dart';
 import 'package:stray_care/view/const/custom_float_button.dart';
-import 'package:stray_care/view/modules/user/adopt_date_confirm.dart';
+import 'package:stray_care/view/modules/user/adopt/adopt_date_confirm.dart';
 
 class AdoptDetails extends StatefulWidget {
   const AdoptDetails({super.key});

@@ -1,16 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stray_care/view/const/custom_colors.dart';
-import 'package:stray_care/view/modules/user/user_signup_otp.dart';
+import 'package:stray_care/view/modules/user/user_home.dart';
 
-class UserSignUpScreen extends StatefulWidget {
-  const UserSignUpScreen({super.key});
+import '../../../const/custom_colors.dart';
+
+class UserOTPScreen extends StatefulWidget {
+  const UserOTPScreen({super.key});
 
   @override
-  State<UserSignUpScreen> createState() => _UserSignUpScreenState();
+  State<UserOTPScreen> createState() => _UserOTPScreenState();
 }
 
-class _UserSignUpScreenState extends State<UserSignUpScreen> {
+class _UserOTPScreenState extends State<UserOTPScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,15 +25,7 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
               children: [
                 TextFormField(
                   decoration: const InputDecoration(
-                      labelText: "Name",
-                      labelStyle: TextStyle(color: CustomColors.buttonColor1)),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                      labelText: "Mobile No.",
+                      labelText: "OTP",
                       labelStyle: TextStyle(color: CustomColors.buttonColor1)),
                 ),
                 const SizedBox(
@@ -47,15 +40,13 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const UserOTPScreen()));
+                                  builder: (context) => const UserHome()));
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 30.0),
                           child: Text(
-                            "Send OTP",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                            "Login",
+                            style: TextStyle(color: Colors.white),
                           ),
                         ))),
               ],

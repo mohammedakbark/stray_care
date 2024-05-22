@@ -12,7 +12,7 @@ import 'package:stray_care/controller/user_controller.dart';
 import 'package:stray_care/view/const/cheary_toast.dart';
 import 'package:stray_care/view/const/custom_colors.dart';
 import 'package:stray_care/view/const/helper.dart';
-import 'package:stray_care/view/modules/user/user_signup_screen.dart';
+import 'package:stray_care/view/modules/user/login/user_signup_screen.dart';
 
 class UserLoginScreen extends StatefulWidget {
   UserLoginScreen({super.key});
