@@ -44,11 +44,11 @@ class UserAdopt extends StatelessWidget {
               ),
               Expanded(
                 child: FutureBuilder(
-                    future: dbController.getAllIncident(),
+                    future: dbController.getAdoptableAnimals(),
                     builder: (context, snapshot) {
                       final data = dbController.searchResult.isNotEmpty
                           ? dbController.searchResult
-                          : dbController.listOfIncidents;
+                          : dbController.adoptableList;
                       return data.isEmpty
                           ? const Center(
                               child: Text("No Data"),
@@ -79,7 +79,10 @@ class UserAdopt extends StatelessWidget {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          const AdoptDetails()));
+                                                          AdoptDetails(
+                                                            reportIncidentModel:
+                                                                data[index],
+                                                          )));
                                             },
                                             child: Image.network(
                                               data[index].imageUrl,

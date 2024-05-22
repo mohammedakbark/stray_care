@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stray_care/model/user_reportincedent_model.dart';
 import 'package:stray_care/view/const/custom_button.dart';
 import 'package:stray_care/view/const/custom_colors.dart';
 import 'package:stray_care/view/const/custom_float_button.dart';
 import 'package:stray_care/view/modules/user/adopt/adopt_date_confirm.dart';
 
 class AdoptDetails extends StatefulWidget {
-  const AdoptDetails({super.key});
+  ReportIncidentModel reportIncidentModel;
+  AdoptDetails({super.key, required this.reportIncidentModel});
 
   @override
   State<AdoptDetails> createState() => _AdoptDetailsState();
@@ -24,7 +26,12 @@ class _AdoptDetailsState extends State<AdoptDetails> {
             children: [
               Container(
                 height: 250,
-                decoration: BoxDecoration(color: CustomColors.buttonColor2),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image:
+                            NetworkImage(widget.reportIncidentModel.imageUrl)),
+                    color: CustomColors.buttonColor2),
               ),
               const SizedBox(
                 height: 30,
@@ -32,8 +39,20 @@ class _AdoptDetailsState extends State<AdoptDetails> {
               const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  // Text(
+                  //   "Color: Brown",
+                  //   style: TextStyle(
+                  //       color: CustomColors.buttonColor1,
+                  //       fontWeight: FontWeight.bold,
+                  //       fontSize: 20),
+                  // ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
                   Text(
-                    "Color: Brown",
+                    widget.reportIncidentModel.description,
                     style: TextStyle(
                         color: CustomColors.buttonColor1,
                         fontWeight: FontWeight.bold,
@@ -41,11 +60,11 @@ class _AdoptDetailsState extends State<AdoptDetails> {
                   ),
                 ],
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Draft type",
+                    "Collected on: ${widget.reportIncidentModel.dateTime}",
                     style: TextStyle(
                         color: CustomColors.buttonColor1,
                         fontWeight: FontWeight.bold,
@@ -53,23 +72,11 @@ class _AdoptDetailsState extends State<AdoptDetails> {
                   ),
                 ],
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Collected on: 20/2/2023",
-                    style: TextStyle(
-                        color: CustomColors.buttonColor1,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                ],
-              ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Collected from: Angadippuram",
+                    "Collected from: ${widget.reportIncidentModel.collectedPlace}",
                     style: TextStyle(
                         color: CustomColors.buttonColor1,
                         fontWeight: FontWeight.bold,
@@ -87,7 +94,13 @@ class _AdoptDetailsState extends State<AdoptDetails> {
                           buttonColor: CustomColors.buttonColor1,
                           text: "Adopt",
                           onPress: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>AdoptDateConfirm()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AdoptDateConfirm(
+                                          reportIncidentModel:
+                                              widget.reportIncidentModel,
+                                        )));
                           })),
                 ],
               )

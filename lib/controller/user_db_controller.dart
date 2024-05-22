@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:stray_care/model/adoption_notification_model.dart';
 import 'package:stray_care/model/user_report_missing_model.dart';
 import 'package:stray_care/model/user_reportincedent_model.dart';
 
@@ -86,13 +87,56 @@ class UserDBController with ChangeNotifier {
   List<ReportIncidentModel> searchResult = [];
 
   searchData(String searchElement) {
-    searchResult = List.from(listOfIncidents);
+    searchResult = List.from(adoptableList);
 
-    searchResult = listOfIncidents.where((element) {
+    searchResult = adoptableList.where((element) {
       return element.collectedPlace
           .toLowerCase()
           .contains(searchElement.toLowerCase());
     }).toList();
     notifyListeners();
+  }
+
+  List<ReportIncidentModel> adoptableList = [];
+
+  getAdoptableAnimals() async {
+    final snapshot = await db
+        .collection("New Incident")
+        .where("adoptionOption", isEqualTo: true)
+        .get();
+
+    log(snapshot.docs.length.toString());
+    adoptableList = snapshot.docs
+        .map((e) => ReportIncidentModel.fromJson(e.data()))
+        .toList();
+  }
+
+ Future makeAdoption(AdoptionNotificationModel adoptionNotificationModel, id) async {
+    final doc = db.collection("Adoption request notification").doc(id);
+    doc.set(adoptionNotificationModel.toJson(doc.id));
+  }
+
+  bool isAnimalalreadyAdopted = false;
+  bool isTheAdoptedUserHim = false;
+  Future checkTheAnimalIsAlreadyAdopted(id) async {
+    final snapshot =
+        await db.collection("Adoption request notification").doc(id).get();
+    // final snap = await snapshot.get();
+    if (snapshot.exists) {
+      isAnimalalreadyAdopted = true;
+      if (snapshot.data()!["uid"] == FirebaseAuth.instance.currentUser!.uid) {
+        isTheAdoptedUserHim = true;
+      } else {
+        isTheAdoptedUserHim = false;
+      }
+    
+    } else {
+      isAnimalalreadyAdopted = false;
+    }
+  }
+  //  vetirinery
+
+  bookVetirinery(){
+    
   }
 }

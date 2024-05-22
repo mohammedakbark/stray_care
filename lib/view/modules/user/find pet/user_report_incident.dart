@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:stray_care/controller/user_controller.dart';
+import 'package:stray_care/controller/controller.dart';
 import 'package:stray_care/controller/user_db_controller.dart';
 import 'package:stray_care/model/user_reportincedent_model.dart';
 import 'package:stray_care/view/const/cheary_toast.dart';
@@ -23,8 +23,6 @@ class UserReportIncident extends StatefulWidget {
 }
 
 class _UserReportIncidentState extends State<UserReportIncident> {
-
-
   final descriptionController = TextEditingController();
   final placeController = TextEditingController();
   String category = "";
@@ -189,6 +187,8 @@ class _UserReportIncidentState extends State<UserReportIncident> {
                                                     dbController
                                                         .reportNewIncident(
                                                             ReportIncidentModel(
+                                                                adoptionOption:
+                                                                    false,
                                                                 collectedPlace:
                                                                     placeController
                                                                         .text,

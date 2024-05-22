@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:stray_care/controller/user_controller.dart';
+import 'package:stray_care/controller/controller.dart';
 import 'package:stray_care/controller/user_db_controller.dart';
 import 'package:stray_care/model/user_model.dart';
 import 'package:stray_care/model/user_report_missing_model.dart';

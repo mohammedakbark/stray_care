@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:stray_care/controller/user_controller.dart';
+import 'package:stray_care/controller/controller.dart';
 import 'package:stray_care/view/modules/authorites/authority_login.dart';
 import 'package:stray_care/view/const/custom_colors.dart';
 import 'package:stray_care/view/modules/user/login/user_login_screen.dart';

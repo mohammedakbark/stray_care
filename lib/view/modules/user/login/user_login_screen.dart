@@ -8,7 +8,7 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
-import 'package:stray_care/controller/user_controller.dart';
+import 'package:stray_care/controller/controller.dart';
 import 'package:stray_care/view/const/cheary_toast.dart';
 import 'package:stray_care/view/const/custom_colors.dart';
 import 'package:stray_care/view/const/helper.dart';

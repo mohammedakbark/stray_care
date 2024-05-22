@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:stray_care/view/about_us.dart';
 import 'package:stray_care/view/const/custom_button.dart';
+import 'package:stray_care/view/login_selection.dart';
 import 'package:stray_care/view/modules/user/booking/booking_and_medicines.dart';
 import 'package:stray_care/view/modules/user/adopt/user_adopt.dart';
 import 'package:stray_care/view/modules/user/booking/user_booking.dart';
@@ -42,60 +45,44 @@ class _UserHomeState extends State<UserHome> {
     ];
 
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                showMenu(
+                    context: context,
+                    position: RelativeRect.fromLTRB(20, 10, 0, 0),
+                    items: [
+                      PopupMenuItem(
+                          onTap: () {
+                            FirebaseAuth.instance.signOut().then((value) {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginSelection()),
+                                  (route) => false);
+                            });
+                          },
+                          child: Text("Logout"))
+                    ]);
+              },
+              icon: const Icon(Icons.logout))
+        ],
+      ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 20),
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.grey,
-                    radius: 20,
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.white,
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 60,
-              ),
-              SizedBox(
-                width: 250,
-                height: 500,
-                child: ListView.builder(
-                    itemCount: buttonName.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: CustomButton(
-                                    buttonColor: CustomColors.buttonColor1,
-                                    text: buttonName[index],
-                                    onPress: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                routes[index]))),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      );
-                    }),
-              )
-            ],
-          ),
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 100),
+        child: ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
+            separatorBuilder: (context, index) => const SizedBox(
+                  height: 30,
+                ),
+            itemCount: buttonName.length,
+            itemBuilder: (context, index) {
+              return CustomButton(
+                  buttonColor: CustomColors.buttonColor1,
+                  text: buttonName[index],
+                  onPress: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => routes[index])));
+            }),
       ),
     );
   }

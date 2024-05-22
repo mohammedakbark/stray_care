@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../../const/custom_colors.dart';
 import '../../const/custom_float_button.dart';
 
-class VeterinaryReport extends StatefulWidget {
-  const VeterinaryReport({super.key});
+class VeterinaryAddMedicines extends StatefulWidget {
+  const VeterinaryAddMedicines({super.key});
 
   @override
-  State<VeterinaryReport> createState() => _VeterinaryReportState();
+  State<VeterinaryAddMedicines> createState() => _VeterinaryAddMedicinesState();
 }
 
-class _VeterinaryReportState extends State<VeterinaryReport> {
+class _VeterinaryAddMedicinesState extends State<VeterinaryAddMedicines> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,10 +35,10 @@ class _VeterinaryReportState extends State<VeterinaryReport> {
                               },
                               child: const Text(
                                 "Upload image",
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                              )
-                          )
-                      ),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ))),
                     ),
                   ],
                 ),
@@ -49,8 +49,8 @@ class _VeterinaryReportState extends State<VeterinaryReport> {
                   decoration: InputDecoration(
                       labelText: "Add Description",
                       labelStyle: TextStyle(color: CustomColors.buttonColor1),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(5))
-                  ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5))),
                 ),
                 const SizedBox(
                   height: 20,
@@ -68,7 +68,9 @@ class _VeterinaryReportState extends State<VeterinaryReport> {
                               },
                               child: const Text(
                                 "Submit",
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
                               ))),
                     ),
                   ],
@@ -77,7 +79,6 @@ class _VeterinaryReportState extends State<VeterinaryReport> {
             ),
           ),
         ),
-
       ),
       floatingActionButton: const CustomFloatButton(),
     );

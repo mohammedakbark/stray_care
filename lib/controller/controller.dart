@@ -10,7 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:stray_care/view/const/cheary_toast.dart';
+import 'package:stray_care/view/const/helper.dart';
+import 'package:stray_care/view/modules/authorites/authority_home.dart';
 import 'package:stray_care/view/modules/user/user_home.dart';
+import 'package:stray_care/view/modules/veterinary/veterinary_home.dart';
 
 class UserController with ChangeNotifier {
   bool isShowotpField = false;
@@ -43,7 +46,7 @@ class UserController with ChangeNotifier {
     notifyListeners();
   }
 
-  //------------------authentication
+  //------------------authentication  Mobile
   final auth = FirebaseAuth.instance;
 
   void _verifyPhoneNumber(String phoneNumber, context) async {
@@ -135,7 +138,7 @@ class UserController with ChangeNotifier {
   ];
   final imagePicker = ImagePicker();
   File? pickedFile;
- Future pickeImageFromGallery() async {
+  Future pickeImageFromGallery() async {
     final pickedXFile =
         await imagePicker.pickImage(source: ImageSource.gallery);
     if (pickedXFile != null) {
@@ -155,5 +158,45 @@ class UserController with ChangeNotifier {
   clearPicker() {
     pickedFile = null;
     notifyListeners();
+  }
+
+  //   authentication Email
+
+  loginWithEmail(email, password, context, String type) async {
+    auth
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((value) {
+      if (type == "Authority") {
+        if (value.user!.uid == Helper.forestId) {
+          // forest
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (conetxt) => const AuthorityHome()),
+              (route) => false);
+        } else if (value.user!.uid == Helper.policeId) {
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (conetxt) => const AuthorityHome()),
+              (route) => false);
+          //police
+        } else {
+          FirebaseAuth.instance.signOut();
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("This user is not exist!")));
+        }
+      } else {
+        if (value.user!.uid == Helper.vetirineryId) {
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (conetxt) => const VeterinaryHome()),
+              (route) => false);
+          // vetirinery
+        } else {
+          FirebaseAuth.instance.signOut();
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("This user is not exist!")));
+        }
+      }
+    }).catchError((onError) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(onError.toString())));
+    });
   }
 }
