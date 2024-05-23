@@ -22,7 +22,7 @@ class UserReportMissing extends StatelessWidget {
   final desCriptionController = TextEditingController();
   final nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  String date = DateFormat("dd/m/yyyy").format(DateTime.now());
+  String date = DateFormat("dd/MM/yyyy").format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {

@@ -91,7 +91,13 @@ class _FountAPetPageState extends State<FountAPetPage> {
                                     },
                                     child: Column(
                                       children: [
-                                        Image.network(data[index].imgUrl),
+                                        SizedBox(
+                                            height: 180,
+                                            width: 200,
+                                            child: Image.network(
+                                              data[index].imgUrl,
+                                              fit: BoxFit.fill,
+                                            )),
 
                                         // Container(
                                         //   decoration: BoxDecoration(

@@ -5,7 +5,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:stray_care/model/add_medicines.dart';
 import 'package:stray_care/model/adoption_notification_model.dart';
+import 'package:stray_care/model/book_appoinment_model.dart';
+import 'package:stray_care/model/foundMissingModel.dart';
+import 'package:stray_care/model/payment_model.dart';
 import 'package:stray_care/model/user_report_missing_model.dart';
 import 'package:stray_care/model/user_reportincedent_model.dart';
 
@@ -50,7 +54,7 @@ class UserDBController with ChangeNotifier {
   Future getAllMissingReposts() async {
     final snapshot = await db
         .collection("Missing reports")
-        // .where("uid", isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .where("uid", isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .get();
 
     listOfMissingReport = snapshot.docs
@@ -111,7 +115,8 @@ class UserDBController with ChangeNotifier {
         .toList();
   }
 
- Future makeAdoption(AdoptionNotificationModel adoptionNotificationModel, id) async {
+  Future makeAdoption(
+      AdoptionNotificationModel adoptionNotificationModel, id) async {
     final doc = db.collection("Adoption request notification").doc(id);
     doc.set(adoptionNotificationModel.toJson(doc.id));
   }
@@ -129,14 +134,77 @@ class UserDBController with ChangeNotifier {
       } else {
         isTheAdoptedUserHim = false;
       }
-    
     } else {
       isAnimalalreadyAdopted = false;
     }
   }
   //  vetirinery
 
-  bookVetirinery(){
-    
+  Future bookVetirinery(BookAppoinmentModel bookAppoinmentModel) async {
+    final docs = db.collection("Appoinment to vetirinery").doc();
+    docs.set(bookAppoinmentModel.toJson(docs.id));
+  }
+
+  List<BookAppoinmentModel> listOfMyBookings = [];
+  fetchMyBookings() async {
+    final snapshot = await db
+        .collection("Appoinment to vetirinery")
+        .where("uid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    listOfMyBookings = snapshot.docs
+        .map((e) => BookAppoinmentModel.fromjson(e.data()))
+        .toList();
+  }
+
+  List<BookAppoinmentModel> listOfAllBookings = [];
+  fetchAllBookings() async {
+    final snapshot = await db.collection("Appoinment to vetirinery").get();
+    listOfAllBookings = snapshot.docs
+        .map((e) => BookAppoinmentModel.fromjson(e.data()))
+        .toList();
+  }
+
+  Future addMedicines(AddMedicines addMedicines) async {
+    final docs = db.collection("Medicines").doc();
+    docs.set(addMedicines.toJson(docs.id));
+  }
+
+  List<AddMedicines> medicinesList = [];
+  Future getAllMedicines() async {
+    final snapshot = await db.collection("Medicines").get();
+    medicinesList =
+        snapshot.docs.map((e) => AddMedicines.fromJson(e.data())).toList();
+  }
+
+  deletMedicines(id) async {
+    await db.collection("Medicines").doc(id).delete();
+    notifyListeners();
+  }
+
+  Future addMissingFoundMessage(
+      missingId, FoundMissingModel foundMissingModel) async {
+    db
+        .collection("Missing Found")
+        .doc(missingId)
+        .set(foundMissingModel.toJson());
+  }
+
+  Future foundMissingReport(id) async {
+    await db.collection("Missing reports").doc(id).delete();
+    notifyListeners();
+  }
+
+  FoundMissingModel? myFoundReport;
+
+  fetchIfFoundEnyOneMyPet(id) async {
+    final snaps = await db.collection("Missing Found").doc(id).get();
+    if (snaps.exists) {
+      myFoundReport = FoundMissingModel.fromjson(snaps.data()!);
+    }
+  }
+
+  afetrPayemt(PaymentModel paymentModel) async {
+    final docs = db.collection("Donations").doc();
+    docs.set(paymentModel.toJson(docs.id));
   }
 }

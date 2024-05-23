@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:stray_care/controller/user_db_controller.dart';
 import 'package:stray_care/view/const/custom_colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserMyReports extends StatefulWidget {
   const UserMyReports({super.key});
@@ -13,13 +14,13 @@ class UserMyReports extends StatefulWidget {
 }
 
 class _UserMyReportsState extends State<UserMyReports> {
-  bool isShown = true;
+  // bool isShown = true;
 
-  void onPress() {
-    setState(() {
-      isShown = false;
-    });
-  }
+  // void onPress() {
+  //   setState(() {
+  //     isShown = false;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +85,30 @@ class _UserMyReportsState extends State<UserMyReports> {
                                               borderRadius:
                                                   BorderRadius.circular(50)),
                                           child: TextButton(
-                                              onPressed: onPress,
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        AlertDialog(
+                                                          content: Text(
+                                                              "Confirm if the pet is already found"),
+                                                          actions: [
+                                                            TextButton(
+                                                                onPressed: () {
+                                                                  dbControler.foundMissingReport(
+                                                                      data[index]
+                                                                          .missingId);
+                                                                  final nav =
+                                                                      Navigator.of(
+                                                                          context);
+                                                                  nav.pop();
+                                                                  nav.pop();
+                                                                },
+                                                                child: Text(
+                                                                    "Confirm"))
+                                                          ],
+                                                        ));
+                                              },
                                               child: const Padding(
                                                 padding: EdgeInsets.symmetric(
                                                     horizontal: 10.0),
@@ -95,6 +119,64 @@ class _UserMyReportsState extends State<UserMyReports> {
                                                 ),
                                               )),
                                         ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        FutureBuilder(
+                                          future: dbControler
+                                              .fetchIfFoundEnyOneMyPet(
+                                                  data[index].missingId),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return SizedBox();
+                                            }
+                                            final data =
+                                                dbControler.myFoundReport;
+                                            return data != null
+                                                ? Column(
+                                                    children: [
+                                                      Text(
+                                                        "Your pet found by a user ",
+                                                        style: TextStyle(
+                                                            color: CustomColors
+                                                                .buttonColor2,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w700),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      SizedBox(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            2,
+                                                        child: ElevatedButton(
+                                                            onPressed:
+                                                                () async {
+                                                              // if(canLaunchUrl(url))
+                                                              await launchUrl(
+                                                                  Uri.parse(
+                                                                      'tel:+91 ${data!.contactNumber}'));
+                                                            },
+                                                            child: Text(
+                                                              "Call me",
+                                                              style: TextStyle(
+                                                                  color: CustomColors
+                                                                      .buttonColor2,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700),
+                                                            )),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Text("");
+                                          },
+                                        )
                                       ],
                                     ),
                                   );

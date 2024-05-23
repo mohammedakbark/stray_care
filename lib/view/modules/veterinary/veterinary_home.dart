@@ -116,7 +116,7 @@ class _VeterinaryHomeState extends State<VeterinaryHome> {
                       });
                 });
           })),
-      floatingActionButton: const CustomFloatButton(),
+      // floatingActionButton: const CustomFloatButton(),
     );
   }
 }

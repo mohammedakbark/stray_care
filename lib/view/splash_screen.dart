@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:stray_care/view/const/helper.dart';
 import 'package:stray_care/view/login_selection.dart';
 import 'package:stray_care/view/modules/authorites/authority_home.dart';
@@ -41,7 +42,11 @@ class SplashScreen extends StatelessWidget {
     );
     return Scaffold(
       body: Center(
-        child: Text("Stray Care"),
+        child:  Text(
+                  "Stray Care",
+                  style: GoogleFonts.poppins(
+                      fontSize: 50, fontWeight: FontWeight.bold),
+                ),
       ),
     );
   }

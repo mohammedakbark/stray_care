@@ -11,13 +11,15 @@ class Helper {
 
   static const policeEmail = "police@gmail.com";
   static const policePassword = "police@123";
- static const policeId = "duKHvtjx96QKKyMtrPCmUfvd4XC2";//it will change
+  static const policeId = "duKHvtjx96QKKyMtrPCmUfvd4XC2"; //it will change
 
   static const forestEmail = "forest@gmail.com";
   static const forestPassord = "forest@123";
-  static const forestId = "aCnJSZ4H2tUKyOPNnJuxub1vmWW2";//it will change
+  static const forestId = "aCnJSZ4H2tUKyOPNnJuxub1vmWW2"; //it will change
 
   static const vetirineryEmail = "vetirinery@gmail.com";
   static const vetirineryPassword = "vetirinery@gmail.com";
-  static const vetirineryId = "d5cBtFLAlQeBwEkUF9cXDVCVQws2";//it will change
+  static const vetirineryId = "d5cBtFLAlQeBwEkUF9cXDVCVQws2"; //it will change
+
+  static const upiID = "1234567890@paytm";
 }
